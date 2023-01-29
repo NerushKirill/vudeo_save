@@ -1,0 +1,25 @@
+# Install tesseract ocr
+# -!!!- Save path to tesseract and add to receiving.py ('C:\\Program Files\\Tesseract-OCR\\tesseract.exe')
+# https://github.com/UB-Mannheim/tesseract/wiki
+# https://tesseract-ocr.github.io/tessdoc/Data-Files#data-files-for-version-400-november-29-2016
+
+
+opencv-python==4.7.0.68
+opencv-contrib-python==4.7.0.68
+pytesseract==0.3.10
+PyQt5==5.15.7
+sqlite3-api==2.0.4
+
+
+pdf2image==1.16.2
+poppler-utils==0.1.0
+
+# https://blog.alivate.com.au/poppler-windows/
+
+# unpack poppler-0.68.0 to C:\Program Files (x86)\
+# add to PATH C:\Program Files (x86)\poppler-0.68.0\bin
+
+
+# if error QT application check https://www.youtube.com/watch?v=b1_RHep2mVU&ab_channel=DmitryRomanov
+# unpack QT_platforms_dll\package from __distrib add to ~ C:\Program Files\Python311
+
