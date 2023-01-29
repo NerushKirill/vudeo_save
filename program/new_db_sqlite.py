@@ -23,6 +23,7 @@ c.execute('''
 c.execute('''
           CREATE TABLE IF NOT EXISTS note (
             [note_id] INTEGER NOT NULL PRIMARY KEY,
+            [iso_number] VARCHAR(10),
             [count_record_day] INTEGER,
             [time_start_mse_day] TIME,
             [time_end_mse_day] TIME,
@@ -41,8 +42,7 @@ c.execute('''
             [birthday] DATE,
             [date_mse] DATE,
             [time_start_mse] TIME,
-            [time_end_mse] TIME,
-            [gave] VARCHAR(90)
+            [time_end_mse] TIME
             );
           ''')
 

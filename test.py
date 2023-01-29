@@ -1,16 +1,9 @@
-import sys
-
-from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QApplication, QMainWindow
+# -*- coding: utf-8 -*-
 
 
-def application():
-    app = QApplication(sys.argv)
-    window = QMainWindow()
-
-    window.show()
-    sys.exit(app.exec())
+def main():
+    pass
 
 
 if __name__ == '__main__':
-    application()
+    main()
