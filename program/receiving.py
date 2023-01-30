@@ -18,5 +18,5 @@ def receving(n: int) -> str:
     return str(text)
 
 
-# test
-# print(receving(0))
+if __name__ == '__main__':
+    receving(0)

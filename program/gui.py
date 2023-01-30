@@ -10,7 +10,7 @@ def application(text_f):
     app = QApplication(sys.argv)
     window = QMainWindow()
 
-    window.setWindowTitle('name_app')
+    window.setWindowTitle('video_saver')
     window.setGeometry(50, 100, 500, 500)
 
     main_text = QtWidgets.QLabel(window)

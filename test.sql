@@ -1,3 +1,5 @@
+-- from mysql db_test
+
 CREATE TABLE IF NOT EXISTS note (
   note_id INTEGER NOT NULL PRIMARY KEY,
   iso_number VARCHAR(10),
@@ -44,7 +46,9 @@ VALUES (
   '11.00'
   );
 
+/*
 select
   concat(s_name, ' ', left(f_name, 1), '.', LEFT(m_name, 1), '.') as 'out'
 from
   mse;
+*/

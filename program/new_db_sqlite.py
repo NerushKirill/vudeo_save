@@ -8,7 +8,7 @@ c = conn.cursor()
 
 
 c.execute('''
-          CREATE TABLE subdivision (
+          CREATE TABLE IF NOT EXISTS subdivision (
             [subdivision_id] INTEGER NOT NULL PRIMARY KEY,
             [es_or_buro] CHAR(30),
             [number_division] INTEGER(2),
@@ -23,7 +23,7 @@ c.execute('''
 c.execute('''
           CREATE TABLE IF NOT EXISTS note (
             [note_id] INTEGER NOT NULL PRIMARY KEY,
-            [iso_number] VARCHAR(10),
+            [iso_number] VARCHAR(20),
             [count_record_day] INTEGER,
             [time_start_mse_day] TIME,
             [time_end_mse_day] TIME,

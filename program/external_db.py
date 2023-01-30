@@ -3,8 +3,8 @@ from mysql.connector import connect, Error
 try:
     with connect(
         host="localhost",
-        user="root",
-        password="2108"
+        user="login",
+        password="pass"
     ) as connection:
 
         create_db_query = "CREATE DATABASE IF NOT EXISTS online_movie_rating"
