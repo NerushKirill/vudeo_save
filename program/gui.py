@@ -1,4 +1,5 @@
 import sys
+import re
 
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow
@@ -28,6 +29,21 @@ def application(text_f):
 
 
 if __name__ == '__main__':
-    text = receving(0)
-    print(text)
-    application(text)
+
+    for i in range(6):
+        text = receving(i)
+
+        # application(text)
+        result1 = re.findall(r'составе №\d, кабинет №\d\d\d,\nза \d\d.\d\d.\d\d\d\d, время с \d\d:\d\d по \d\d:\d\d:',
+                             rf'{text}')
+        result1_1 = re.findall(r'бюро №\d, кабинет №\d\d\d,\nза \d\d.\d\d.\d\d\d\d, время с \d\d:\d\d по \d\d:\d\d:',
+                               rf'{text}')
+
+        result2 = re.findall(r'\d\).{0,}', rf'{text}')
+        result3 = re.findall(r'\w\.\w\..{0,}', rf'{text}')
+        print('------------', i)
+        print(text)
+        print(result1, result1_1)
+        print(result2)
+        print(result3)
+        input()

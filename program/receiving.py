@@ -6,7 +6,7 @@ def receving(n: int) -> str:
     # Path tesseract
     pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
 
-    file = f'../test_file/test_{0}.png'
+    file = f'../test_file/test_{n}.png'
 
     # Add picture
     img = cv2.imread(file)
@@ -19,4 +19,7 @@ def receving(n: int) -> str:
 
 
 if __name__ == '__main__':
-    receving(0)
+
+    for i in range(6):
+        pass
+
