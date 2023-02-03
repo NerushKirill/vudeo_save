@@ -7,13 +7,18 @@
 opencv-python==4.7.0.68
 opencv-contrib-python==4.7.0.68
 pytesseract==0.3.10
-PyQt5==5.15.7
+
+hikvisionapi==0.3.2
+
 sqlite3-api==2.0.4
 mysql-connector-python
 
 
 pdf2image==1.16.2
 poppler-utils==0.1.0
+
+PyQt5==5.15.8
+
 
 # https://blog.alivate.com.au/poppler-windows/
 

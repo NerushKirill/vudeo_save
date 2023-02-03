@@ -1,11 +1,11 @@
 from pdf2image import convert_from_path
 
 
-file = '../test_file/train_set.pdf'
+file = '../test_file/new_test_b.pdf'
 
 
 def converter_png():
-    images = convert_from_path(file, 400)
+    images = convert_from_path(file, 300)
     for i, image in enumerate(images):
         image.save(f'../test_file/test_{i}.png')
 
