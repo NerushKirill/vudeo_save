@@ -1,5 +1,6 @@
 \.idea
 \__distrib
+\__pycache__
 \db
 \test_file
 \venv
