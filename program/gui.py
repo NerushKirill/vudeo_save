@@ -3,9 +3,6 @@ import sys
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow
 
-from receiving import receving
-from search_config import search_mse
-
 
 def application(text_f):
     app = QApplication(sys.argv)
@@ -29,10 +26,7 @@ def application(text_f):
 
 
 def main():
-    text = receving(0)
-    search = search_mse(text)
-    print(*search)
-    application(text)
+    application()
 
 
 if __name__ == '__main__':
