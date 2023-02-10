@@ -24,7 +24,7 @@ c.execute('''
           CREATE TABLE IF NOT EXISTS note (
             [note_id] INTEGER NOT NULL PRIMARY KEY,
             [iso_number] VARCHAR(20),
-            [count_record_day] INTEGER,
+            [count_record_day] INTEGER(2),
             [time_start_mse_day] TIME,
             [time_end_mse_day] TIME,
             [gave] CHAR(90)
