@@ -44,8 +44,8 @@ TRUNCATE TABLE note;
 */
 
 CREATE TABLE IF NOT EXISTS note (
-  note_id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  iso_number VARCHAR(20),
+  note_id INTEGER NOT NULL PRIMARY KEY,
+  iso_number VARCHAR(10),
   count_record_day INTEGER(2),
   date_mse DATE,
   time_start_mse_day TIME,
