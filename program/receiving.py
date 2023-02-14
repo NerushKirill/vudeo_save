@@ -1,10 +1,12 @@
 import cv2
 import pytesseract
 
+from config import path_pytesseract
+
 
 def receving(n: int) -> str:
     # Path tesseract
-    pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
+    pytesseract.pytesseract.tesseract_cmd = path_pytesseract
 
     file = f'../test_file/test_{n}.png'
 
