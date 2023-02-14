@@ -1,7 +1,8 @@
 from pdf2image import convert_from_path
 
 
-file = '../test_file/new_test_b.pdf'
+# file = '../test_file/tests/test_1.pdf'
+file = '../test_file/tests/test_1.pdf'
 
 
 def converter_png():

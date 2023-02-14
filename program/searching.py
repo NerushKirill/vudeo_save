@@ -5,8 +5,7 @@ from receiving import receving
 from search_config import search_mse
 
 
-def main_string(n: int):
-    data = receving(n)
+def main_string(data):
     result_search = [*search_mse(data)]
 
     return result_search
@@ -55,22 +54,24 @@ def new_mse(train_2):
     return [s_name, f_name, m_name, birthday, time_start_mse, time_end_mse]
 
 
-def main():
-    result_search = main_string(0)
+def main_prog(data):
+    result_search = main_string(data)
     k = len(result_search[1])
     l = result_search[1]
 
     train_1 = re.split(',\n{0,1} {0,1}', result_search[0][0])
     train_3 = result_search[2][1]
 
-    print(train_1)
+    sub_d = subdivision(train_1)
+    note = new_note(k, train_1, train_3)
+    mse_all = []
 
     for i in l:
         train_2 = re.split(',\n{0,1} {0,1}', i)
-        print(new_mse(train_2))
+        mse_all.append(new_mse(train_2))
 
-    print(train_3)
+    return sub_d, note, mse_all
 
 
 if __name__ == '__main__':
-    main()
+    print(*main_prog(1), sep='\n')

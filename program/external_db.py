@@ -1,13 +1,16 @@
 from mysql.connector import connect, Error
 from config import host_db, user_db, password_db, database_name
-from searching import main
+from searching import main_prog
 
 
-# train = main(0)
-train = ['бюро', '1']
+train = main_prog(0)
+train_1 = train[0]
+train_2 = train[1]
+train_3 = train[2]
+
 
 request_1 = f"""
-SELECT * FROM subdivision WHERE es_or_buro = '{train[0]}' AND number_division = {train[1]}
+SELECT * FROM subdivision WHERE es_or_buro = '{train_1[0]}' AND number_division = {train_1[1]}
 """
 
 # request_1 = f"""
@@ -37,9 +40,12 @@ try:
                     ]
 
         with connection.cursor() as cursor:
-            cursor.execute(request_1)
+            cursor.execute(requests[0])
             _subdivision_id = cursor.fetchall()
-            print(_subdivision_id[0][0])
+            try:
+                print(_subdivision_id[0][0])
+            except IndexError as e:
+                print(e)
 
         # with connection.cursor() as cursor:
         #     for request in requests:
