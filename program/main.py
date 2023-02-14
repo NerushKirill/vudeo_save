@@ -1,10 +1,3 @@
-"""
-mkdir Files_set
-convert all files from Files_set to png
-for i in Files: receiving i
-
-"""
-
 import os
 import datetime
 
@@ -14,8 +7,8 @@ from searching import main_prog
 
 
 #!!!!!!!!!!!from new day videosave
-
 # current_date = datetime.datetime.today().strftime('mse for %d-%m-%Y')
+
 current_date = datetime.datetime.today().strftime('%d-%m-%Y')
 
 file_log = "../logs/config_log.txt"
@@ -33,8 +26,17 @@ if start_count == 0:
         os.mkdir(f'..\\2_programm_storage')
     except FileExistsError as e:
         print(e)
+
+path_working = "..\\1_working_directory"
+path_storage = "..\\2_programm_storage"
+
+a = os.listdir(path_working)
+if len(a) > 0:
+    print('__main__')
+    for i in a:
+        pass
 else:
-    print('12345')
+    print('Нет файлов для работы')
 
 #
 #
