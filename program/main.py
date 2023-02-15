@@ -9,7 +9,6 @@ from searching import main_prog
 #!!!!!!!!!!!from new day videosave
 # current_date = datetime.datetime.today().strftime('mse for %d-%m-%Y')
 
-# path_working = "..\\1_working_directory"
 path_working = "../1_working_directory"
 path_storage = "../2_program_storage"
 path_output = "../3_output_program"
@@ -44,19 +43,21 @@ if len(list_file) > 0:
         try:
             os.mkdir(storage_path)
             converter_png(path_working, file_name, 300, storage_path)
+
+            for sheet in os.listdir(storage_path):
+                print(sheet)
+                data = receving(storage_path, sheet)
+                working_train = main_prog(661, data)
+                # TODO Добавить взаимодействие с last_note_number (main_prog('last_note_number', data))
+                # TODO Взаимодействие с бд
+                # TODO Сортировка служебных записок по подразделениям
+                # TODO Очистка working_directory
+                # TODO Добавить логи
+                print(working_train)
+
         except FileExistsError as e:
             print(e)
             continue
 
 else:
     print('Нет файлов для работы')
-
-#
-#
-#
-#
-#
-
-# for i in range(2):
-#     data = receving(i)
-#     print(main_prog(data))

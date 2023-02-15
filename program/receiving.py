@@ -4,11 +4,11 @@ import pytesseract
 from config import path_pytesseract
 
 
-def receving(n: int) -> str:
+def receving(file_path, file_name):
     # Path tesseract
-    pytesseract.pytesseract.tesseract_cmd = path_pytesseract
+    pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
 
-    file = f'../test_file/test_{n}.png'
+    file = f'{file_path}/{file_name}'
 
     # Add picture
     img = cv2.imread(file)
@@ -21,6 +21,7 @@ def receving(n: int) -> str:
 
 
 if __name__ == '__main__':
-
-    for i in range(2):
-        print(receving(i))
+    path = "../2_program_storage/15-02-2023 (test_1.pdf)"
+    file_name = "sheet_1_(test_1.pdf).png"
+    data = receving(path, file_name)
+    print(data)

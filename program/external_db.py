@@ -3,6 +3,8 @@ from config import host_db, user_db, password_db, database_name
 from searching import main_prog
 
 
+# TODO connet_function(request): return
+
 train = main_prog(0)
 train_1 = train[0]
 train_2 = train[1]
@@ -23,7 +25,7 @@ SELECT * FROM subdivision WHERE es_or_buro = '{train_1[0]}' AND number_division 
 # VALUES (5, 3, 'Фамилия', 'Имя', 'Отчество', '1990-01-01', '10:00', '12:00');
 # """
 #
-# equest_3 = """
+# request_3 = """
 # INSERT INTO mse (id_es_buro, sub_note_id, s_name, f_name, m_name, birthday, time_start_mse, time_end_mse)
 # VALUES (5, 3, 'Фамилия', 'Имя', 'Отчество', '1990-01-01', '10:00', '12:00');
 # """
