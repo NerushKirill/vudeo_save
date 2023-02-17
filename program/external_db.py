@@ -44,7 +44,7 @@ def main_cursor(command, request):
                 return command(connection, request)
             elif command == inset_db:
                 command(connection, request)
-                print('complete')
+                # print('complete')
 
     except Error as e:
         print(e)

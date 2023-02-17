@@ -14,6 +14,7 @@ path_output = "../3_output_program"
 current_date = datetime.datetime.today().strftime('%d-%m-%Y')
 
 file_log = "../logs/config_log.txt"
+counter_log = "../logs/counter.txt"
 start_count = 0
 
 with open(file_log, "r", encoding='utf-8') as f:
@@ -36,8 +37,7 @@ if start_count == 0:
                 0,
                 0,
                 0,
-                'Последний номер предыдущего журнала МСЭ'
-                )
+                'Последний номер предыдущего журнала МСЭ')
         '''
 
         main_cursor(inset_db, requests_first_start)
@@ -48,20 +48,27 @@ if start_count == 0:
 
 list_file = os.listdir(path_working)
 
-if len(list_file) > 0:
-    print('start __main__')
-    for file_name in list_file:
-        storage_path = f'{path_storage}/{current_date} ({file_name})'
-        save_mse_path = f'save mse for {current_date}'
+num = 0
 
+storage_path = f'{path_storage}/{current_date}_{num}'
+save_mse_path = f'save mse for {current_date}_{num}'
+
+try:
+    os.mkdir(storage_path)
+    os.mkdir(f'{path_output}/{save_mse_path}')
+except FileExistsError as e:
+    # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    num += 1
+    os.mkdir(storage_path)
+    os.mkdir(f'{path_output}/{save_mse_path}')
+
+
+if len(list_file) > 0:
+    for file_name in list_file:
         try:
-            os.mkdir(storage_path)
             converter_png(path_working, file_name, 300, storage_path)
 
-            # os.mkdir(f'{path_output}/{save_mse_path}')
-
             for sheet in os.listdir(storage_path):
-                # TODO Взаимодействие с бд
                 # TODO Сортировка служебных записок по подразделениям
                 # TODO Очистка working_directory
                 # TODO Добавить логи
@@ -70,32 +77,24 @@ if len(list_file) > 0:
                 SELECT note_id FROM note ORDER BY note_id DESC LIMIT 1;
                 """
                 last_note_id = main_cursor(select_db, request_last_note_id)[0]
-                print(last_note_id)
-                print(sheet)
+
                 data = receving(storage_path, sheet)
                 working_train = main_prog(last_note_id, data)
 
-                print(working_train)
-
                 # сопоставление номера кабинета из бд и working_train[0][2]
-                # request_room_number = f"""
-                # SELECT subdivision_id
-                # FROM subdivision
-                # WHERE es_or_buro = '{working_train[0][0]}' AND number_division = '{working_train[0][1]}';
-                # """
 
                 request_room_number = f"""
                 SELECT subdivision_id, cabinet_mse 
                 FROM subdivision 
-                WHERE es_or_buro = 'Экспертный состав' AND number_division = '1';
+                WHERE es_or_buro = '{working_train[0][0]}' AND number_division = '{working_train[0][1]}';
                 """
 
                 subd_id_number = main_cursor(select_db, request_room_number)
 
-                if subd_id_number[1] == working_train[0][2]:
-                    print('number room - good')
-                else:
-                    print('number room - bad')
+                # if subd_id_number[1] == working_train[0][2]:
+                    # print('number room - good')
+                # else:
+                    # print('number room - bad')
 
                 # добавление записи в таблицу note
                 request_add_note = f"""
@@ -111,31 +110,42 @@ if len(list_file) > 0:
 
                 main_cursor(inset_db, request_add_note)
 
-                # # добавление записей в таблицу mse
+                mse_list = []
 
+                # добавление записей в таблицу mse
                 for mse in working_train[2]:
-                    print(mse)
-                    print(subd_id_number[0], working_train[1][0])
+
                     request_add_mse = f"""
-                                    INSERT INTO 
-                                    mse(id_es_buro, sub_note_id, s_name, f_name, m_name, birthday, time_start_mse, time_end_mse)
-                                    VALUES ({subd_id_number[0]}, 
-                                            {working_train[1][0]}, 
-                                            '{mse[0]}', 
-                                            '{mse[1]}', 
-                                            '{mse[2]}', 
-                                            '{mse[3]}', 
-                                            '{mse[4]}', 
-                                            '{mse[5]}');
-                                    """
+                    INSERT INTO 
+                    mse(id_es_buro, sub_note_id, s_name, f_name, m_name, birthday, time_start_mse, time_end_mse)
+                    VALUES ({subd_id_number[0]}, 
+                            {working_train[1][0]}, 
+                            '{mse[0]}', 
+                            '{mse[1]}', 
+                            '{mse[2]}', 
+                            '{mse[3]}', 
+                            '{mse[4]}', 
+                            '{mse[5]}');
+                    """
+
                     main_cursor(inset_db, request_add_mse)
 
-                # name_note_dir = ' '.join([working_train[0][0],
-                #                           working_train[0][1],
-                #                           ])
-                #
-                # print(f'{path_output}/{save_mse_path}/{name_note_dir}')
-                # os.mkdir(f'{path_output}/{save_mse_path}/{name_note_dir}')
+                    start_mse = '.'.join(mse[4].split(':'))
+                    end_mse = '.'.join(mse[5].split(':'))
+                    name_mse_dir = f'{mse[0]} {mse[1][0]}.{mse[2][0]}. ({start_mse}-{end_mse})'
+                    mse_list.append(name_mse_dir)
+
+                mse_list_str: str = ', '.join(mse_list)
+
+                name_note_dir = ' '.join([f'({working_train[1][0]}-ВН)',
+                                          str(working_train[0][0]),
+                                          str(working_train[0][1]),
+                                          f'({working_train[1][2]})',
+                                          f'({mse_list_str})'
+                                          ])
+
+                os.mkdir(f'{path_output}/{save_mse_path}/{name_note_dir}')
+                input('next_video')
 
         except FileExistsError as e:
             print(e)

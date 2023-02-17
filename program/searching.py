@@ -13,7 +13,6 @@ def main_string(data):
 
 def subdivision(train_1):
     # for subdivision table
-    subdivision_name = str()
     _es_or_buro = re.findall('.{0,}№', train_1[0])[0]
 
     match _es_or_buro:
