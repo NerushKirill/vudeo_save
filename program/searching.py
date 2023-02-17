@@ -22,7 +22,7 @@ def subdivision(train_1):
         case 'бюро №':
             subdivision_name = 'бюро'
         case _:
-            return 'error'
+            return 'error subdivision'
 
     _number_division = re.findall('\d{1,2}', train_1[0])[0]
     _room_number = re.findall('\d{1,3}', train_1[1])[0]  # сравнить с номером кабинета из subdivision.cabinet_mse
@@ -33,9 +33,9 @@ def subdivision(train_1):
 def new_note(last_note_id, count_mse, train_1, train_3):
     # for note table
     note_id = last_note_id + 1
-    iso_number = str(note_id) + '/ВН'
     count_record_day = count_mse
-    date_mse = datetime.strptime(train_1[2].split(' ')[1], '%d.%m.%Y').strftime('%Y-%m-%d')
+    find_date_mse = re.findall('\d{2}.\d{2}.\d{4}', train_1[2])
+    date_mse = datetime.strptime(find_date_mse[0], '%d.%m.%Y').strftime('%Y-%m-%d')
 
     _total_time = re.findall('[\d]{1,2}:[\d]{1,2}', train_1[3])
     time_start_mse_day = _total_time[0]  # сравнить время начала и конца
@@ -45,7 +45,7 @@ def new_note(last_note_id, count_mse, train_1, train_3):
     # gave перебрать список for _ in 'train_3 = result_search[2]': if != Ю.Ю. Корниенко: return _
     gave = train_3  # проверить != Ю.Ю. Корниенко
 
-    return [note_id, iso_number, count_record_day, date_mse,
+    return [note_id, count_record_day, date_mse,
             time_start_mse_day, time_end_mse_day, current_date_note, gave]
 
 
@@ -86,8 +86,8 @@ def main_prog(note_number, data):
 
 
 if __name__ == '__main__':
-    path = "../2_program_storage/15-02-2023 (test_2.pdf)"
-    file_name = "sheet_1_(test_2.pdf).png"
+    path = "../2_program_storage/16-02-2023 (new_test.pdf)"
+    file_name = "sheet_0_(new_test.pdf).png"
     data = receving(path, file_name)
 
-    print(*main_prog(661, data), sep='\n')
+    print(main_prog(661, data))

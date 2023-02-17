@@ -21,7 +21,7 @@ def receving(file_path, file_name):
 
 
 if __name__ == '__main__':
-    path = "../2_program_storage/15-02-2023 (test_1.pdf)"
-    file_name = "sheet_1_(test_1.pdf).png"
+    path = "../2_program_storage/16-02-2023 (new_test.pdf)"
+    file_name = "sheet_0_(new_test.pdf).png"
     data = receving(path, file_name)
     print(data)
