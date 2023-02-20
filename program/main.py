@@ -48,17 +48,15 @@ if start_count == 0:
 
 list_file = os.listdir(path_working)
 
-num = 0
-
-storage_path = f'{path_storage}/{current_date}_{num}'
-save_mse_path = f'save mse for {current_date}_{num}'
+storage_path = f'{path_storage}/{current_date}'
+save_mse_path = f'save mse for {current_date}'
 
 try:
     os.mkdir(storage_path)
     os.mkdir(f'{path_output}/{save_mse_path}')
 except FileExistsError as e:
-    # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    num += 1
+    storage_path += '_1'
+    save_mse_path += '_1'
     os.mkdir(storage_path)
     os.mkdir(f'{path_output}/{save_mse_path}')
 
@@ -83,18 +81,18 @@ if len(list_file) > 0:
 
                 # сопоставление номера кабинета из бд и working_train[0][2]
 
-                request_room_number = f"""
-                SELECT subdivision_id, cabinet_mse 
+                request_room_info = f"""
+                SELECT subdivision_id, cabinet_mse, cam_flow, download_link
                 FROM subdivision 
                 WHERE es_or_buro = '{working_train[0][0]}' AND number_division = '{working_train[0][1]}';
                 """
 
-                subd_id_number = main_cursor(select_db, request_room_number)
+                subd_id_number = main_cursor(select_db, request_room_info)
 
-                # if subd_id_number[1] == working_train[0][2]:
-                    # print('number room - good')
-                # else:
-                    # print('number room - bad')
+                if subd_id_number[1] == working_train[0][2]:
+                    print('number room - good')
+                else:
+                    print('number room - bad')
 
                 # добавление записи в таблицу note
                 request_add_note = f"""
@@ -145,7 +143,22 @@ if len(list_file) > 0:
                                           ])
 
                 os.mkdir(f'{path_output}/{save_mse_path}/{name_note_dir}')
+
+                # Проверка интервала времени МСЭ и времени общего
+                # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+                # add info to user
+                user_output_flow = subd_id_number[2]
+                user_output_date = working_train[1][2]
+                user_output_time_start_d = working_train[1][3]
+                user_output_time_end_d = working_train[1][4]
+                user_output_link = subd_id_number[3]
+
+                print(user_output_flow, user_output_date, user_output_time_start_d,
+                      user_output_time_end_d, user_output_link)
+
                 input('next_video')
+                print('-----------------------------------------')
 
         except FileExistsError as e:
             print(e)
